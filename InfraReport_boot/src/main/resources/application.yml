@@ -1,0 +1,65 @@
+spring: 
+  profiles: 
+    active: "local"
+---
+
+#공통
+spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  main:
+    allow-bean-definition-overriding: true
+
+server:
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        secure: false
+        same-site: strict
+
+#logging:
+#  level:
+#    com.infraReport: DEBUG            # 내 패키지 로그
+#    org.mybatis: DEBUG                # MyBatis 내부 로그
+#    org.springframework.jdbc: DEBUG   # JDBC 로그
+
+---
+
+#로컬
+server:
+  port: 8080
+
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:mysql://localhost:3306/daily_report_db?useSSL=false&serverTimezone=Asia/Seoul
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+logging:
+  config: classpath:log4j2.xml
+
+---
+
+#운영
+server:
+  port: 80
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:mysql://localhost:3306/daily_report_db?useSSL=false&serverTimezone=Asia/Seoul
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+logging:
+  config: classpath:log4j2.xml
