@@ -23,4 +23,3 @@ public class TilesConfig {
         return resolver;
     }
 }
-
